@@ -29,13 +29,17 @@ def getVersion():
     try: return subprocess.check_output("lsb_release -d".split()).split(":")[-1].strip()
     except: return ""
 
-def printc(rText, rColour=col.OKBLUE, rPadding=0):
-    print("%s ┌─────────────────────────────────────────────────┐"% (rColour), col.ENDC)
-    for i in range(rPadding): print "%s │                                          │ %s" % (rColour, col.ENDC)
-    print "%s │ %s%s%s │ %s" % (rColour, " "*(20-(len(rText)/2)), rText, " "*(40-(20-(len(rText)/2))-len(rText)), col.ENDC)
-    for i in range(rPadding): print "%s │                                          │ %s" % (rColour, col.ENDC)
-    print "%s └──────────────────────────────────────────┘ %s" % (rColour, col.ENDC)
-    print " "
+def printc(rText, rColour=col.BRIGHT_GREEN, rPadding=0, rLimit=46):
+    print("%s ┌─────────────────────────────────────────────────┐ %s" % (rColour, col.ENDC))
+    for i in range(rPadding): 
+        print("%s │                                                 │ %s" % (rColour, col.ENDC))
+    array = [rText[i:i+rLimit] for i in range(0, len(rText), rLimit)]
+    for i in array:
+        print("%s │ %s%s%s │ %s" % (rColour, " "*round(23-(len(i)/2)), i, " "*round(46-(22-(len(i)/2))-len(i)), col.ENDC))
+    for i in range(rPadding): 
+        print("%s │                                                 │ %s" % (rColour, col.ENDC))
+    print("%s └─────────────────────────────────────────────────┘ %s" % (rColour, col.ENDC))
+    print(" ")
 
 def prepare(rType="MAIN"):
     global rPackages
